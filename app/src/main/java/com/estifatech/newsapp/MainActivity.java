@@ -6,13 +6,17 @@ import static com.estifatech.newsapp.constants.Constants.CATEGORY_TECHNOLOGY;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -23,6 +27,7 @@ import com.estifatech.newsapp.model.NewsModel;
 import com.estifatech.newsapp.service.NetworkChangeReceiver;
 import com.estifatech.newsapp.service.NewsClient;
 import com.estifatech.newsapp.service.NewsService;
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,6 +40,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements NetworkChangeReceiver.NetworkChangeListener {
     NetworkChangeReceiver networkChangeReceiver;
     SwipeRefreshLayout swipeRefreshLayout;
+    Toolbar toolbar;
     NewsService newsService;
     RecyclerView recyclerView;
     PostAdapter adapter;
@@ -52,6 +58,10 @@ public class MainActivity extends AppCompatActivity implements NetworkChangeRece
         //Initialize broadcast receiver
         networkChangeReceiver = new NetworkChangeReceiver();
         networkChangeReceiver.setNetworkChangeListener(this);
+
+        // Initialize toolbar
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         // Initialize retrofit client
         newsService = NewsClient.getClient().create(NewsService.class);
@@ -130,5 +140,19 @@ public class MainActivity extends AppCompatActivity implements NetworkChangeRece
     @Override
     public void onNetworkUnavailable() {
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate Menu
+        getMenuInflater().inflate(R.menu.menu,menu);
+
+        //Get Search view from menu
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        androidx.appcompat.widget.SearchView searchView = (androidx.appcompat.widget.SearchView) searchItem.getActionView();
+
+        // Customize the search view if needed
+        searchView.setQueryHint("Search news ...");
+        return true;
     }
 }
