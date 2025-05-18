@@ -1,5 +1,5 @@
 ﻿# 📰 Android News App
-
+[![Android CI](https://github.com/yibeltal-gashaw/Android-News-App/actions/workflows/android.yml/badge.svg)](https://github.com/yibeltal-gashaw/Android-News-App/actions/workflows/android.yml)
 ![GitHub repo size](https://img.shields.io/github/repo-size/yibeltal-gashaw/Android-News-App?color=blue)
 ![GitHub last commit](https://img.shields.io/github/last-commit/yibeltal-gashaw/Android-News-App)
 ![GitHub issues](https://img.shields.io/github/issues/yibeltal-gashaw/Android-News-App)
